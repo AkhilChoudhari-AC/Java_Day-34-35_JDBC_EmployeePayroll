@@ -283,4 +283,21 @@ public class EmployeePayrollService {
 
     }
 
+    public boolean insertData() throws EmployeePayrollException {
+        boolean success = false;
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeQuery("insert into employee_payroll(name,gender,salary,start) values('Hima','F',400000.00,'2018-01-03')");
+            success = true;
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+        return success;
+
+    }
+
 }
