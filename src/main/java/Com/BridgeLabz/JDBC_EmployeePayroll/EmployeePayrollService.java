@@ -20,6 +20,7 @@ public class EmployeePayrollService {
     private static final String userName = "root";
     private static final String password = "123321123";
 
+
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -105,37 +106,9 @@ public class EmployeePayrollService {
         try {
             connection = getConnection();
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("update employee_payroll set salary=? where name=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("update employee_payroll set salary=? where name=?");
             preparedStatement.setDouble(1, 300000);
             preparedStatement.setString(2, "Tersia");
-            success = true;
-        } catch (ClassNotFoundException e) {
-            throw new EmployeePayrollException("class not found");
-        } catch (SQLException e) {
-            throw new EmployeePayrollException("sql exception");
-        }
-
-        return success;
-
-    }
-
-    /**
-     * method to retrieve employee data based on name
-     *
-     * @param name
-     * @return
-     * @throws EmployeePayrollException
-     */
-    public boolean retrievePrepared(String name) throws EmployeePayrollException {
-        Connection connection;
-        boolean success = false;
-        try {
-            connection = getConnection();
-            Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from employee_payroll where name=?");
-            preparedStatement.setString(1, name);
             success = true;
         } catch (ClassNotFoundException e) {
             throw new EmployeePayrollException("class not found");
