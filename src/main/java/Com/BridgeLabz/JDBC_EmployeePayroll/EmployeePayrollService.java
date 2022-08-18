@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Enumeration;
 
 import com.mysql.cj.jdbc.Driver;
+
 /**
  *
  * EmployeePayrollService class demonstrated CRUD operations
@@ -66,6 +67,33 @@ public class EmployeePayrollService {
             System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " "
                     + resultSet.getDouble(4) + " " + resultSet.getDate(5));
         }
+
+    }
+
+    /**
+     * method to update the salary
+     *
+     * @return
+     * @throws EmployeePayrollException
+     */
+    public boolean updateSalary() throws EmployeePayrollException {
+        Connection connection;
+        boolean success = false;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            int result = statement.executeUpdate("update employee_payroll set salary=300000 where name='Tersia'");
+            if (result > 0) {
+                System.out.println("updated");
+                success = true;
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
+        return success;
 
     }
 
