@@ -147,14 +147,140 @@ public class EmployeePayrollService {
 
     }
 
+    /**
+     * method to retrieve employee based on date
+     *
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public void retrieveDate() throws ClassNotFoundException, SQLException {
         Connection connection = getConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from employee_payroll where start BETWEEN CAST('2018-01-01' AS DATE) AND DATE(NOW())");
+        ResultSet resultSet = statement.executeQuery(
+                "select * from employee_payroll where start BETWEEN CAST('2018-01-01' AS DATE) AND DATE(NOW())");
         while (resultSet.next()) {
             System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " "
                     + resultSet.getDouble(4) + " " + resultSet.getDate(5));
         }
+    }
+
+    /**
+     * method to retrieve sum of salary
+     *
+     * @throws EmployeePayrollException
+     */
+    public void retrieveSum() throws EmployeePayrollException {
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("select sum(salary) from employee_payroll where gender='F' group by gender");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + " ");
+
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
+    }
+
+    /**
+     * method to retrieve average salary
+     *
+     * @throws EmployeePayrollException
+     */
+    public void retrieveAverage() throws EmployeePayrollException {
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("select avg(salary) from employee_payroll where gender='F' group by gender");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + " ");
+
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
+    }
+
+    /**
+     * method to retrieve minimum salary
+     *
+     * @throws EmployeePayrollException
+     */
+    public void retrieveMinimum() throws EmployeePayrollException {
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("select min(salary) from employee_payroll where gender='F' group by gender");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + " ");
+
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
+    }
+
+    /**
+     * method to retrieve maximum salary
+     *
+     * @throws EmployeePayrollException
+     */
+    public void retrieveMaximum() throws EmployeePayrollException {
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement
+                    .executeQuery("select max(salary) from employee_payroll where gender='F' group by gender");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + " ");
+
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
+    }
+
+    /**
+     * method to count employees
+     *
+     * @throws EmployeePayrollException
+     */
+    public void retrieveCount() throws EmployeePayrollException {
+        Connection connection;
+        try {
+            connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select count(salary) from employee_payroll group by gender");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + " ");
+
+            }
+        } catch (ClassNotFoundException e) {
+            throw new EmployeePayrollException("class not found");
+        } catch (SQLException e) {
+            throw new EmployeePayrollException("sql exception");
+        }
+
     }
 
 }
