@@ -1,8 +1,8 @@
 package Com.BridgeLabz.JDBC_EmployeePayroll;
+
 import java.time.LocalDate;
 
 public class EmployeePayrollData {
-
     int id;
     String name;
     String gender;
